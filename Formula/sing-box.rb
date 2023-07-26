@@ -1,15 +1,27 @@
-class SingBox < Formula
+class sing_box < Formula
   desc "Universal proxy platform"
   homepage "https://sing-box.sagernet.org/"
-  url "https://github.com/SagerNet/sing-box.git", tag: "v1.2-beta8"
-  version "1.2-beta8"
+  version "1.3.4"
   license "GPL-3.0-or-later"
-  head "https://github.com/SagerNet/sing-box.git", branch: "dev-next"
 
-  depends_on "go" => :build
+  on_macos do
+    on_arm do
+      url "https://github.com/SagerNet/sing-box/releases/download/v#{version}/sing-box-#{version}-darwin-arm64.tar.gz"
+    end
+    on_intel do
+      url "https://github.com/SagerNet/sing-box/releases/download/#{version}/sing-box-#{version}-darwin-amd64.tar.gz"
+    end
+  end
+  on_linux do
+      on_arm do
+        url "https://github.com/SagerNet/sing-box/releases/download/v#{version}/sing-box-#{version}-linux-arm64.tar.gz"
+      end
+      on_intel do
+        url "https://github.com/SagerNet/sing-box/releases/download/#{version}/sing-box-#{version}-linux-amd64.tar.gz"
+      end
+  end
 
   def install
-    system "make", "build"
     bin.install "sing-box"
   end
 
